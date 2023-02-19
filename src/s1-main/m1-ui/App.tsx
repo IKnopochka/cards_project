@@ -12,7 +12,6 @@ function App() {
                 <Layout>
                     <Pages/>
                 </Layout>
-                {/*<Main/>*/}
             </div>
         </HashRouter>
     );

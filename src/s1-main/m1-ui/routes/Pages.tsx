@@ -15,7 +15,7 @@ export const PATH = {
     ERROR404: '/Error404',
     PASSWORD_RESTORE: '/password-restore',
     NEW_PASSWORD: '/new-password',
-    TEST_SUPER_COMPONENTS: '/test-super-components'
+    TEST_SUPER_COMPONENTS: '/test'
 }
 
 const Pages = () => {
