@@ -1,0 +1,11 @@
+.select {
+    width: 300px;
+    margin: 20px;
+}
+
+.select:focus {
+}
+
+
+.option:hover {
+}
