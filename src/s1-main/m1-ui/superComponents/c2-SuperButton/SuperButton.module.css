@@ -29,15 +29,15 @@
 }
 
 .default:hover {
-    border: 5px solid #0c728c;
+    border: solid #041e21;
 }
 
 .red:hover {
-    border: 5px solid #490404;
+    border:  solid #490404;
 }
 
 .secondary:hover {
-    border: 5px solid #041e21;
+    border: solid #041e21;
 }
 
 

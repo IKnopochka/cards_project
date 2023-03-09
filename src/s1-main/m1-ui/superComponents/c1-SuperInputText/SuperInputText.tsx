@@ -5,7 +5,7 @@ import React, {
     KeyboardEvent,
     ReactNode,
 } from 'react'
-import s from './SuperInputText.module.css'
+import s from './SuperInputText.module.scss'
 
 // тип пропсов обычного инпута
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>,
@@ -64,12 +64,12 @@ const SuperInputText: React.FC<SuperInputTextPropsType> = (
                 className={finalInputClassName}
                 {...restProps} // отдаём инпуту остальные пропсы если они есть (value например там внутри)
             />
-            <span
+            <div
                 id={id ? id + '-span' : undefined}
                 className={finalSpanClassName}
             >
                 {error}
-            </span>
+            </div>
         </div>
     )
 }
