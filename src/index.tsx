@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { HashRouter } from 'react-router-dom'
 
-import App from './s3-UI/app/App'
-import { store } from './s1-DAL/store'
+import App from 'n1-main/m1-ui/App'
+import { store } from './n1-main/m3-dal/store'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
