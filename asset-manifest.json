@@ -1,15 +1,21 @@
 {
   "files": {
-    "main.css": "/cards_project/static/css/main.073c9b0a.css",
-    "main.js": "/cards_project/static/js/main.9e5f2089.js",
-    "static/js/787.d6b03555.chunk.js": "/cards_project/static/js/787.d6b03555.chunk.js",
+    "main.css": "/cards_project/static/css/main.ea0d1540.css",
+    "main.js": "/cards_project/static/js/main.c48fc573.js",
+    "static/media/defaultAvatar.svg": "/cards_project/static/media/defaultAvatar.ce2015e588e783b0b356eba0207ef142.svg",
+    "static/media/404.svg": "/cards_project/static/media/404.9ec31c0ba8d95b0480272e46af98c955.svg",
+    "static/media/emailImg.svg": "/cards_project/static/media/emailImg.565755d5f2f689197fc13d3fc9c94e9e.svg",
+    "static/media/pencil.svg": "/cards_project/static/media/pencil.70402b8c191487d02accca06e5f95095.svg",
+    "static/media/checked.svg": "/cards_project/static/media/checked.b75ca55e8759862b4083.svg",
+    "static/media/defaultCover.svg": "/cards_project/static/media/defaultCover.aea3fb732cdae33d77f5058e7a64a82f.svg",
     "index.html": "/cards_project/index.html",
-    "main.073c9b0a.css.map": "/cards_project/static/css/main.073c9b0a.css.map",
-    "main.9e5f2089.js.map": "/cards_project/static/js/main.9e5f2089.js.map",
-    "787.d6b03555.chunk.js.map": "/cards_project/static/js/787.d6b03555.chunk.js.map"
+    "static/media/logout.svg": "/cards_project/static/media/logout.cb129deb68a5eaccedb237c356886ba8.svg",
+    "static/media/eyeIcon.svg": "/cards_project/static/media/eyeIcon.f94c0c1db3b9955d7b1c7886af95d7b6.svg",
+    "main.ea0d1540.css.map": "/cards_project/static/css/main.ea0d1540.css.map",
+    "main.c48fc573.js.map": "/cards_project/static/js/main.c48fc573.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.9e5f2089.js"
+    "static/css/main.ea0d1540.css",
+    "static/js/main.c48fc573.js"
   ]
 }
