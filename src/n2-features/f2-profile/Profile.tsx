@@ -1,31 +1,30 @@
 import React, { useCallback } from 'react'
 
-import {Navigate, NavLink} from 'react-router-dom'
+import { NavLink, Navigate, useNavigate} from 'react-router-dom'
 
 import style from 'n2-features/f2-profile/Profile.module.scss'
 
-import { PATH } from 'n1-main/m1-ui/s4-common/app/Routes/AppRoutes'
+import { PATH } from 'n1-main/m1-ui/routes/AppRoutes'
 import { useAppDispatch, useAppSelector } from 'n1-main/m3-dal/store'
-import { changeProfileName, logOutTC } from 'n1-main/m2-bll/authSlice'
-import {isLoggedInSelector, SuperButton, userInfoSelector} from 'n1-main/m1-ui/s4-common'
+import { changeProfileName } from 'n1-main/m2-bll/authSlice'
 import {ProfileAvatar} from "n2-features/f2-profile/ProfileAvatar/ProfileAvatar";
-import {EditableSpan} from "n1-main/m1-ui/s4-common/EditableSpan/EditableSpan";
-import {LogOutButton} from "n1-main/m1-ui/s4-common/LogOutButton/LogOutButton";
+import {EditableSpan} from "n1-main/m1-ui/common/EditableSpan/EditableSpan";
+import {LogOutButton} from "n1-main/m1-ui/common/LogOutButton/LogOutButton";
+import {SuperButton} from "n1-main/m1-ui/common";
+import {isLoggedInSelector, userInfoSelector} from "n1-main/m1-ui/common/selectors/selectors";
 
 export const Profile = () => {
   const userInfo = useAppSelector(userInfoSelector)
   const isLoggedIn = useAppSelector(isLoggedInSelector)
   const dispatch = useAppDispatch()
-
-  const logoutHandler = () => {
-    dispatch(logOutTC())
-  }
+    const navigate = useNavigate()
 
   const onNameChangeHandler = useCallback((newName: string) => {
     dispatch(changeProfileName(newName))
   }, [])
 
   if (!isLoggedIn) return <Navigate to={PATH.LOGIN} />
+  //if (!isLoggedIn) return navigate(PATH.LOGIN)
 
   return (
       <div className={style.container}>

@@ -6,12 +6,13 @@ import Paper from '@mui/material/Paper'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Navigate, useParams } from 'react-router-dom'
 
-import { PATH } from 'n1-main/m1-ui/s4-common/app/Routes/AppRoutes'
+import { PATH } from 'n1-main/m1-ui/routes/AppRoutes'
 import { useAppDispatch, useAppSelector } from 'n1-main/m3-dal/store'
 import { createNewPassword } from 'n1-main/m2-bll/authSlice'
-import { appStatusSelector, isCreateNewPasswordSelector, PasswordInput } from 'n1-main/m1-ui/s4-common'
 
 import s from 'n2-features/f1-auth/a3-password/p2-create/CreateNewPassword.module.scss'
+import {appLoadingStatusSelector, isCreateNewPasswordSelector} from "n1-main/m1-ui/common/selectors/selectors";
+import {PasswordInput} from "n1-main/m1-ui/common";
 
 type NewPasswordType = {
   password: string
@@ -20,7 +21,7 @@ type NewPasswordType = {
 export const CreateNewPassword = () => {
   const dispatch = useAppDispatch()
   const isCreateNewPassword = useAppSelector(isCreateNewPasswordSelector)
-  const appStatus = useAppSelector(appStatusSelector)
+  const appStatus = useAppSelector(appLoadingStatusSelector)
 
   const {
     register,

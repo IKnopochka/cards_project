@@ -5,7 +5,7 @@ import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import emailImg from 'n1-main/m1-ui/s4-common/assets/img/emailImg.svg'
+import emailImg from 'n1-main/m1-ui/images/emailImg.svg'
 
 import s from 'n2-features/f1-auth/a3-password/p1-restore/r1-instructions/CheckEmail.module.scss'
 

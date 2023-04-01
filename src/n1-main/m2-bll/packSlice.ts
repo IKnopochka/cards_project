@@ -10,7 +10,7 @@ import {
   UpdatePackType,
 } from 'n1-main/m3-dal/packsAPI'
 import { AppDispatch, RootState } from 'n1-main/m3-dal/store'
-import { errorUtils } from 'n1-main/m1-ui/s4-common'
+import {errorUtils} from "n1-main/m1-ui/utils";
 
 const initialState = {
   packsData: {} as PackReturnType,

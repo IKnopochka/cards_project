@@ -3,18 +3,14 @@ import React, { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { Navigate, NavLink } from 'react-router-dom'
 
-import eye from 'n1-main/m1-ui/s4-common/assets/img/eyeIcon.svg'
+import eye from 'n1-main/m1-ui/images/eyeIcon.svg'
 import { useAppDispatch, useAppSelector } from 'n1-main/m3-dal/store'
 import { registrationThunk } from 'n1-main/m2-bll/authSlice'
-import {
-  appStatusSelector,
-  CommonInput,
-  emailCheck,
-  isLoggedInSelector,
-  SuperButton,
-} from 'n1-main/m1-ui/s4-common'
 
 import style from 'n2-features/f1-auth/a1-registration/Registration.module.scss'
+import {appLoadingStatusSelector, isLoggedInSelector} from "n1-main/m1-ui/common/selectors/selectors";
+import {CommonInput, SuperButton} from "n1-main/m1-ui/common";
+import {emailCheckReg} from "n1-main/m1-ui/utils";
 
 type FormValues = {
   email: string
@@ -24,7 +20,7 @@ type FormValues = {
 
 export const Registration = () => {
   const isLoggedIn = useAppSelector(isLoggedInSelector)
-  const appStatus = useAppSelector(appStatusSelector)
+  const appStatus = useAppSelector(appLoadingStatusSelector)
 
   const dispatch = useAppDispatch()
   const {
@@ -68,7 +64,7 @@ export const Registration = () => {
         <Controller
           rules={{
             pattern: {
-              value: emailCheck,
+              value: emailCheckReg,
               message: 'Email is not valid',
             },
             required: 'Field is required',

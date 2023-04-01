@@ -7,12 +7,12 @@ import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 
 import { useAppSelector } from 'n1-main/m3-dal/store'
-import { appStatusSelector, cardsSelector, userIdSelector } from 'n1-main/m1-ui/s4-common'
-import { ActionsForCards } from 'n1-main/m1-ui/s4-common/app/Actions'
+import {appLoadingStatusSelector, cardsSelector, userIdSelector} from "n1-main/m1-ui/common/selectors/selectors";
+import {ActionsForCards} from "n2-features/f4-cards/c2-actions/ActionsForCards";
 
 export const CardsTableBody = () => {
   const cards = useAppSelector(cardsSelector)
-  const appStatus = useAppSelector(appStatusSelector)
+  const appStatus = useAppSelector(appLoadingStatusSelector)
   const userId = useAppSelector(userIdSelector)
   const onStudyClick = () => {
     console.log('study')

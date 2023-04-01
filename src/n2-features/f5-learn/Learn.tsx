@@ -6,27 +6,26 @@ import { useLocation, useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from 'n1-main/m3-dal/store'
 import { getCards } from 'n1-main/m2-bll/cardsSlice'
 import { setCurrentCard } from 'n1-main/m2-bll/learnSlice'
-import {
-  appStatusSelector,
-  BackToPacksList,
-  cardsSelector,
-  getRandomCard,
-  isLoggedInSelector,
-  LinearProgress,
-  packNameSelector,
-  showAnswerSelector,
-} from 'n1-main/m1-ui/s4-common'
+
 
 import { Answer } from 'n2-features/f5-learn/l1-answer/Answer'
 import s from 'n2-features/f5-learn/Learn.module.scss'
 import { Question } from 'n2-features/f5-learn/l2-question/Question'
+import {
+  appLoadingStatusSelector,
+  cardsSelector,
+  isLoggedInSelector,
+  packNameSelector, showAnswerSelector
+} from "n1-main/m1-ui/common/selectors/selectors";
+import {BackToPacksList, LinearProgress} from "n1-main/m1-ui/common";
+import {getRandomCard} from "n1-main/m1-ui/utils";
 
 export const Learn = () => {
   const cards = useAppSelector(cardsSelector)
   const packName = useAppSelector(packNameSelector)
   const isLoggedIn = useAppSelector(isLoggedInSelector)
   const showAnswer = useAppSelector(showAnswerSelector)
-  const appStatus = useAppSelector(appStatusSelector)
+  const appStatus = useAppSelector(appLoadingStatusSelector)
 
   const dispatch = useAppDispatch()
   const { search } = useLocation()

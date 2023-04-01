@@ -7,18 +7,19 @@ import TextField from '@mui/material/TextField'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Navigate, NavLink } from 'react-router-dom'
 
-import { PATH } from 'n1-main/m1-ui/s4-common/app/Routes/AppRoutes'
+import { PATH } from 'n1-main/m1-ui/routes/AppRoutes'
 import { LoginType } from 'n1-main/m3-dal/authAPI'
 import { useAppDispatch, useAppSelector } from 'n1-main/m3-dal/store'
 import { loginTC } from 'n1-main/m2-bll/authSlice'
-import { appStatusSelector, isLoggedInSelector, PasswordInput, SuperButton } from 'n1-main/m1-ui/s4-common'
 
 import s from 'n2-features/f1-auth/a2-login/Login.module.scss'
+import {PasswordInput, SuperButton} from 'n1-main/m1-ui/common'
+import {appLoadingStatusSelector, isLoggedInSelector} from "n1-main/m1-ui/common/selectors/selectors";
 
 export const Login: FC = () => {
   const dispatch = useAppDispatch()
   const isLoggedIn = useAppSelector(isLoggedInSelector)
-  const appStatus = useAppSelector(appStatusSelector)
+  const appStatus = useAppSelector(appLoadingStatusSelector)
   const {
     register,
     handleSubmit,

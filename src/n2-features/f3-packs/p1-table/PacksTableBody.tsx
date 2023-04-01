@@ -6,11 +6,11 @@ import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import { useNavigate } from 'react-router-dom'
 
-import { PATH } from 'n1-main/m1-ui/s4-common/app/Routes/AppRoutes'
-import defaultCover from 'n1-main/m1-ui/s4-common/assets/img/defaultCover.svg'
+import { PATH } from 'n1-main/m1-ui/routes/AppRoutes'
+import defaultCover from 'n1-main/m1-ui/images/defaultCover.svg'
 import { UpdatePackType } from 'n1-main/m3-dal/packsAPI'
 import { useAppSelector } from 'n1-main/m3-dal/store'
-import { ActionsForPack } from 'n1-main/m1-ui/s4-common/app/Actions'
+import {ActionsForPack} from "n2-features/f3-packs/p2-actions/ActionsForPack";
 
 type PacksTableBodyType = {
   onDeletePackHandle: (id: string) => void

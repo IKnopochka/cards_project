@@ -1,6 +1,6 @@
 import React from 'react'
+import {HeadTable} from "n1-main/m1-ui/common";
 
-import { HeadTable } from 'n1-main/m1-ui/s4-common'
 
 export type HeaderType<D> = {
   id: keyof D

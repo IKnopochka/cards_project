@@ -11,10 +11,10 @@ import {
   UpdateCardType,
 } from 'n1-main/m3-dal/cardsAPI'
 import { AppDispatch, RootState } from 'n1-main/m3-dal/store'
-import { errorUtils, getRandomCard } from 'n1-main/m1-ui/s4-common'
 
 import { setAppStatus } from 'n1-main/m2-bll/appSlice'
 import { setCurrentCard, setShowAnswer } from 'n1-main/m2-bll/learnSlice'
+import {errorUtils, getRandomCard} from "n1-main/m1-ui/utils";
 
 const initialState = {
   cardsData: {} as CardsReturnType,

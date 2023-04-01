@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { HeadTable } from 'n1-main/m1-ui/s4-common'
 import {HeaderType} from "n2-features/f3-packs/p1-table/PacksTableHead";
+import {HeadTable} from "n1-main/m1-ui/common";
 
 export type CardData = {
   question: string

@@ -4,12 +4,13 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { IconButton } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 
-import defaultAvatar from 'n1-main/m1-ui/s4-common/assets/img/defaultAvatar.svg'
+import defaultAvatar from 'n1-main/m1-ui/images/defaultAvatar.svg'
 import { useAppDispatch, useAppSelector } from 'n1-main/m3-dal/store'
 import { changeProfileImage } from 'n1-main/m2-bll/authSlice'
-import { avatarSelector, convertFileToBase64 } from 'n1-main/m1-ui/s4-common'
 
 import s from 'n2-features/f2-profile/ProfileAvatar/ProfileAvatar.module.scss'
+import {avatarSelector} from "n1-main/m1-ui/common/selectors/selectors";
+import {convertFileToBase64} from "n1-main/m1-ui/utils";
 
 type ProfileAvatarPropsType = {
   size: number

@@ -3,18 +3,14 @@ import React, { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { NavLink, useNavigate } from 'react-router-dom'
 
-import { PATH } from 'n1-main/m1-ui/s4-common/app/Routes/AppRoutes'
+import { PATH } from 'n1-main/m1-ui/routes/AppRoutes'
 import { useAppDispatch, useAppSelector } from 'n1-main/m3-dal/store'
 import { getNewToken } from 'n1-main/m2-bll/authSlice'
-import {
-  appStatusSelector,
-  CommonInput,
-  emailCheck,
-  isSendedEmailSelector,
-  SuperButton,
-} from 'n1-main/m1-ui/s4-common'
+import {emailCheckReg} from 'n1-main/m1-ui/utils'
 
 import style from 'n2-features/f1-auth/a3-password/p1-restore/PassRecovery.module.scss'
+import {appLoadingStatusSelector, isSendedEmailSelector} from 'n1-main/m1-ui/common/selectors/selectors'
+import {CommonInput, SuperButton} from "n1-main/m1-ui/common";
 
 interface FormValues {
   email: string
@@ -24,7 +20,7 @@ export const PassRecovery = () => {
   const [email, setEmail] = useState('')
   const dispatch = useAppDispatch()
   const isSendedEmail = useAppSelector(isSendedEmailSelector)
-  const appStatus = useAppSelector(appStatusSelector)
+  const appStatus = useAppSelector(appLoadingStatusSelector)
   const navigate = useNavigate()
 
   const {
@@ -49,7 +45,7 @@ export const PassRecovery = () => {
         <Controller
           rules={{
             pattern: {
-              value: emailCheck,
+              value: emailCheckReg,
               message: 'Email is not valid',
             },
             required: 'Field is required',

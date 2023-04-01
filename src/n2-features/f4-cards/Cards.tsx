@@ -5,16 +5,17 @@ import Table from '@mui/material/Table'
 import TableContainer from '@mui/material/TableContainer'
 import { Navigate, useLocation, useSearchParams } from 'react-router-dom'
 
-import { PATH } from 'n1-main/m1-ui/s4-common/app/Routes/AppRoutes'
+import { PATH } from 'n1-main/m1-ui/routes/AppRoutes'
 import { AddNewCardType } from 'n1-main/m3-dal/cardsAPI'
 import { useAppDispatch, useAppSelector } from 'n1-main/m3-dal/store'
 import { addNewCard, getCards } from 'n1-main/m2-bll/cardsSlice'
-import { cardsSelector, isLoggedInSelector, packNameSelector, SearchField } from 'n1-main/m1-ui/s4-common'
 
 import s from 'n2-features/f4-cards/Cards.module.scss'
 import {CardsHeader} from "n2-features/f4-cards/CardsHeader/CardsHeader";
 import {CardsTableHead} from "n2-features/f4-cards/c1-table/CardsTableHead";
 import {CardsTableBody} from "n2-features/f4-cards/c1-table/CardsTableBody";
+import {SearchField} from "n1-main/m1-ui/common";
+import {cardsSelector, isLoggedInSelector, packNameSelector} from "n1-main/m1-ui/common/selectors/selectors";
 
 export const Cards = () => {
   const cards = useAppSelector(cardsSelector)

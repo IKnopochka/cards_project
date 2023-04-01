@@ -8,9 +8,10 @@ import RadioGroup from '@mui/material/RadioGroup'
 import { useAppDispatch, useAppSelector } from 'n1-main/m3-dal/store'
 import { updateCardGrade } from 'n1-main/m2-bll/cardsSlice'
 import { setGrade } from 'n1-main/m2-bll/learnSlice'
-import { answerSelector, card_idSelector, gradeSelector, SuperButton } from 'n1-main/m1-ui/s4-common'
 
 import s from 'n2-features/f5-learn/l1-answer/Answer.module.scss'
+import {answerSelector, card_idSelector, gradeSelector} from "n1-main/m1-ui/common/selectors/selectors";
+import {SuperButton} from "n1-main/m1-ui/common";
 
 export const Answer = () => {
   const answer = useAppSelector(answerSelector)

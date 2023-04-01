@@ -5,23 +5,26 @@ import Table from '@mui/material/Table'
 import TableContainer from '@mui/material/TableContainer'
 import { useLocation, useSearchParams } from 'react-router-dom'
 
-import { FilterPanel } from 'n1-main/m1-ui/s4-common/app/FilterPanel/FilterPanel'
-import { AddPackModal } from 'n1-main/m1-ui/s4-common/app/Modals'
-import { SuperPagination } from 'n1-main/m1-ui/s4-common/app/Pagination/Pagination'
+import { FilterPanel } from 'n1-main/m1-ui/common/FilterPanel/FilterPanel'
+import { AddPackModal } from 'n1-main/m1-ui/common/Modals'
+import { SuperPagination } from 'n1-main/m1-ui/common/Pagination/Pagination'
 
 import s from 'n2-features/f3-packs/Packs.module.scss'
 
 import { AddNewPackType, UpdatePackType } from 'n1-main/m3-dal/packsAPI'
 import { useAppDispatch, useAppSelector } from 'n1-main/m3-dal/store'
 import { addNewPack, deletePack, getPacks, updatePack } from 'n1-main/m2-bll/packSlice'
-import { isLoggedInSelector, SearchField, userIdSelector } from 'n1-main/m1-ui/s4-common'
-import {
-  maxCardsValueSelector,
-  packsSelector,
-  packsTotalCountSelector,
-} from 'n1-main/m1-ui/s4-common/selectors/packsSelectors'
+
+
 import {PacksTableHead} from "n2-features/f3-packs/p1-table/PacksTableHead";
 import {PacksTableBody} from "n2-features/f3-packs/p1-table/PacksTableBody";
+import {
+  isLoggedInSelector,
+  maxCardsValueSelector, packsSelector,
+  packsTotalCountSelector,
+  userIdSelector
+} from 'n1-main/m1-ui/common/selectors/selectors'
+import {SearchField} from "n1-main/m1-ui/common";
 
 export const Packs = () => {
   const packs = useAppSelector(packsSelector)
@@ -142,7 +145,7 @@ export const Packs = () => {
       </TableContainer>
 
       <SuperPagination
-        paginationTitle={'f3-packs per Page'}
+        paginationTitle={'Packs per Page'}
         setRowsAndPage={setRowsAndPage}
         totalCount={packsTotalCount ?? 0}
         rows={rows === 0 ? 4 : rows}

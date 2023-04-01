@@ -2,9 +2,9 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Dispatch } from 'redux'
 
 import { UserType, LoginType, NewPasswordType, authAPI } from 'n1-main/m3-dal/authAPI'
-import { errorUtils } from 'n1-main/m1-ui/s4-common'
 
 import { setAppError, setAppStatus, setIsInitializedAC } from 'n1-main/m2-bll/appSlice'
+import {errorUtils} from "n1-main/m1-ui/utils";
 
 const initialState = {
   profile: {} as UserType,
