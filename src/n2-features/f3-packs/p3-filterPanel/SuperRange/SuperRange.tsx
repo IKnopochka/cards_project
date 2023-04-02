@@ -4,7 +4,7 @@ import Slider from '@mui/material/Slider'
 
 import { useAppSelector } from 'n1-main/m3-dal/store'
 
-import s from 'n1-main/m1-ui/common/FilterPanel/SuperRange/SuperRange.module.scss'
+import s from 'n2-features/f3-packs/p3-filterPanel/SuperRange/SuperRange.module.scss'
 import {appLoadingStatusSelector} from "n1-main/m1-ui/common/selectors/selectors";
 
 type SuperRangeType = {

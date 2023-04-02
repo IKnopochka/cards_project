@@ -1,4 +1,4 @@
-import { BackToPacksList } from 'n1-main/m1-ui/common/BackToPacksList/BackToPacksList'
+
 import { CommonInput } from 'n1-main/m1-ui/common/CommonInput/CommonInput'
 import { HeadTable } from 'n1-main/m1-ui/common/HeadTable/HeadTable'
 import { LinearProgress } from 'n1-main/m1-ui/common/LinearProgress/LinearProgress'
@@ -8,7 +8,6 @@ import { SuperButton } from 'n1-main/m1-ui/common/SuperButton/SuperButton'
 
 
 export {
-  BackToPacksList,
   CommonInput,
   HeadTable,
   LinearProgress,

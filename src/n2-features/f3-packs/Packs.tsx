@@ -5,8 +5,7 @@ import Table from '@mui/material/Table'
 import TableContainer from '@mui/material/TableContainer'
 import { useLocation, useSearchParams } from 'react-router-dom'
 
-import { FilterPanel } from 'n1-main/m1-ui/common/FilterPanel/FilterPanel'
-import { AddPackModal } from 'n1-main/m1-ui/common/Modals'
+import { FilterPanel } from 'n2-features/f3-packs/p3-filterPanel/FilterPanel'
 import { SuperPagination } from 'n1-main/m1-ui/common/Pagination/Pagination'
 
 import s from 'n2-features/f3-packs/Packs.module.scss'
@@ -25,6 +24,7 @@ import {
   userIdSelector
 } from 'n1-main/m1-ui/common/selectors/selectors'
 import {SearchField} from "n1-main/m1-ui/common";
+import {AddPackModal} from "n1-main/m1-ui/common/Modals/PackModals/AddPackModal";
 
 export const Packs = () => {
   const packs = useAppSelector(packsSelector)

@@ -4,7 +4,9 @@ import BorderColorIcon from '@mui/icons-material/BorderColor'
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep'
 
 import { CardType } from 'n1-main/m3-dal/cardsAPI'
-import { BasicModal, DeleteCardModal, EditCardModal } from 'n1-main/m1-ui/common/Modals'
+import {EditCardModal} from "n1-main/m1-ui/common/Modals/CardsModals/EditCardModal";
+import {DeleteCardModal} from "n1-main/m1-ui/common/Modals/CardsModals/DeleteCardModal";
+import {BasicModal} from "n1-main/m1-ui/common/Modals/BasicModal";
 
 type ActionsPropsType = {
   onStudyClick: (id: string) => void

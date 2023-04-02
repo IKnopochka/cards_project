@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
 import Paper from '@mui/material/Paper'
-import { useLocation, useParams } from 'react-router-dom'
+import {useLocation, useNavigate, useParams} from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from 'n1-main/m3-dal/store'
 import { getCards } from 'n1-main/m2-bll/cardsSlice'
@@ -17,8 +17,9 @@ import {
   isLoggedInSelector,
   packNameSelector, showAnswerSelector
 } from "n1-main/m1-ui/common/selectors/selectors";
-import {BackToPacksList, LinearProgress} from "n1-main/m1-ui/common";
+import { LinearProgress, SuperButton} from "n1-main/m1-ui/common";
 import {getRandomCard} from "n1-main/m1-ui/utils";
+import {PATH} from "n1-main/m1-ui/routes/AppRoutes";
 
 export const Learn = () => {
   const cards = useAppSelector(cardsSelector)
@@ -31,6 +32,7 @@ export const Learn = () => {
   const { search } = useLocation()
   const paramsFromUrl = Object.fromEntries(new URLSearchParams(search))
   const { packId } = useParams<{ packId: string }>()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!isLoggedIn) return
@@ -46,10 +48,16 @@ export const Learn = () => {
   if (appStatus === 'loading') {
     return <LinearProgress />
   }
-
+  const buttonBackHandler = () => {
+    navigate(PATH.CARDS)
+  }
   return (
     <>
-      <BackToPacksList />
+      <SuperButton onClick={buttonBackHandler} style={{
+        letterSpacing: '0.01em',
+        fontSize: '16px',
+        width: '175px',
+      }}>Back to cards</SuperButton>
       <div className={s.questionContainer}>
         <div className={s.title}>Learn &quot;{packName}&quot;</div>
         <Paper elevation={3}>

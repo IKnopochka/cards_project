@@ -5,9 +5,9 @@ import Button from '@mui/material/Button'
 
 import { useAppSelector } from 'n1-main/m3-dal/store'
 
-import s from 'n1-main/m1-ui/common/FilterPanel/FilterPanel.module.scss'
-import { SuperRange } from 'n1-main/m1-ui/common/FilterPanel/SuperRange/SuperRange'
-import { SwitchButton } from 'n1-main/m1-ui/common/FilterPanel/SwitchButton/SwitchButton'
+import s from 'n2-features/f3-packs/p3-filterPanel/FilterPanel.module.scss'
+import { SuperRange } from 'n2-features/f3-packs/p3-filterPanel/SuperRange/SuperRange'
+import { SwitchButton } from 'n2-features/f3-packs/p3-filterPanel/SwitchButton/SwitchButton'
 import {appLoadingStatusSelector} from "n1-main/m1-ui/common/selectors/selectors";
 
 type FilterPanelType = {

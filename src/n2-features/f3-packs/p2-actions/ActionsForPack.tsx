@@ -8,11 +8,12 @@ import Typography from '@mui/material/Typography'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { PATH } from 'n1-main/m1-ui/routes/AppRoutes'
-import { PackType, UpdatePackType } from 'n1-main/m3-dal/packsAPI'
+import {  UpdatePackType } from 'n1-main/m3-dal/packsAPI'
 import { useAppDispatch, useAppSelector } from 'n1-main/m3-dal/store'
 import { deletePack, updatePack } from 'n1-main/m2-bll/packSlice'
-import { DeletePackModal, EditPackModal } from 'n1-main/m1-ui/common/Modals'
 import {appLoadingStatusSelector, userIdSelector} from "n1-main/m1-ui/common/selectors/selectors";
+import {EditPackModal} from "n1-main/m1-ui/common/Modals/PackModals/EditPackModal";
+import {DeletePackModal} from "n1-main/m1-ui/common/Modals/PackModals/DeletePackModal";
 
 type ActionsPropsType = {
   packId: string
