@@ -1,171 +1,120 @@
-import React from 'react'
-
-import CloseIcon from '@mui/icons-material/Close'
+import React, {useState} from 'react'
 import Button from '@mui/material/Button'
-import MenuItem from '@mui/material/MenuItem'
-import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import { Controller, useForm } from 'react-hook-form'
-import { useLocation } from 'react-router-dom'
-
-import { useAppDispatch } from 'n1-main/m3-dal/store'
-import { addNewCard } from 'n1-main/m2-bll/cardsSlice'
-import { fileToBasePromise } from 'n1-main/m1-ui/utils/fileToBasePromise'
+import InputLabel from '@mui/material/InputLabel';
+import {SubmitHandler, useForm} from 'react-hook-form'
+import {BasicModal} from 'n1-main/m1-ui/common/Modals/BasicModal'
+import Select, {SelectChangeEvent} from '@mui/material/Select'
+import {UploadImage} from 'n1-main/m1-ui/common/UploadImage/UploadImage'
 import {SuperButton} from "n1-main/m1-ui/common/index";
+import {AddNewCardType} from "n1-main/m3-dal/cardsAPI";
+import MenuItem from "@mui/material/MenuItem";
 
 type AddCardModalPropsType = {
-  pack_id: string
-  handleClose: () => void
-}
-
-export type AddCardType = {
-  selectValue: string
-  question: string
-  questionImg: string
-  answer: string
+    onAddHandle: (data: AddNewCardType) => void
 }
 
 const options = ['Text', 'Image']
 
-export const AddCardModal = (props: AddCardModalPropsType) => {
-  const dispatch = useAppDispatch()
-  const { search } = useLocation()
-  const paramsFromUrl = Object.fromEntries(new URLSearchParams(search))
-  const handleOpen = () => {
-    submitFunc(getValues())
-    props.handleClose()
-  }
 
-  const { control, getValues, reset, setValue } = useForm<AddCardType>({
-    defaultValues: { selectValue: options[0], question: '', answer: '', questionImg: '' },
-  })
+export const AddCardModal = ({onAddHandle, ...props}: AddCardModalPropsType) => {
+    const [open, setOpen] = useState(false)
 
-  const submitFunc = (data: AddCardType) => {
-    console.log(data)
-    dispatch(
-      addNewCard(
-        { ...data, cardsPack_id: props.pack_id },
-        { cardsPack_id: props.pack_id, ...paramsFromUrl }
-      )
-    )
-    reset({ selectValue: options[0], question: '', answer: '' })
-  }
-
-  const uploadHandler = (files: FileList | null) => {
-    if (files && files.length) {
-      fileToBasePromise(files[0]).then(res => {
-        setValue('questionImg', res as string)
-      })
+    const handleOpen = () => setOpen(true)
+    const handleClose = () => {
+        setOpen(false)
+        reset()
     }
-  }
 
-  return (
-    <div
-      style={{
-        width: '400px',
-        height: '400px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          width: '347px',
-        }}
-      >
-        <Typography>Add new card</Typography>
-        <CloseIcon onClick={props.handleClose} />
-      </div>
+    const {
+        setValue,
+        register,
+        handleSubmit,
+        reset
 
-      <div
-        style={{
-          height: '190px',
-          width: '347px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexDirection: 'column',
-        }}
-      >
+    } = useForm<any>({
+        defaultValues: {
+            selectQuestion: 'Text',
+        }
+    })
+
+    const onSubmit: SubmitHandler<AddNewCardType> = (data: AddNewCardType) => {
+        console.log(data)
+
+        onAddHandle(data)
+        handleClose()
+    }
+
+    const [format, setFormat] = React.useState('Text');
+
+    const handleChange = (event: SelectChangeEvent) => {
+        setFormat(event.target.value);
+    };
+
+
+    return (
         <div>
-          <div>Choose a question format</div>
-          <Controller
-            render={({ field }) => (
-              <div>
-                <Select sx={{ width: '100%', height: '36px' }} {...field}>
-                  {options.map((option, index) => (
-                    <MenuItem key={index} sx={{ width: '347px', height: '36px' }} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))}
-                </Select>
-                {field.value === 'Image' ? (
-                  <Controller
-                    control={control}
-                    name="questionImg"
-                    render={({ field: { onChange } }) => (
-                      <label>
-                        <input
-                          type="file"
-                          onChange={event => {
-                            return uploadHandler(event.target.files)
-                          }}
-                          style={{ display: 'none' }}
-                          accept="image/png, image/jpeg, image/svg"
-                        />
-                        <Button style={{ marginLeft: '95px' }} variant="contained" component="span">
-                          Upload button
-                        </Button>
-                      </label>
+            <SuperButton
+                style={{
+                    letterSpacing: '0.01em',
+                    fontSize: '16px',
+                    width: '175px',
+                }}
+                onClick={handleOpen}
+            >
+                Add new card
+            </SuperButton>
+            <BasicModal open={open} handleClose={handleClose}>
+                <Typography variant="h5" component="h2">
+                    ADD NEW CARD
+                </Typography>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <InputLabel>Choose format</InputLabel>
+                    <Select sx={{width: '100%', height: '36px'}} value={format} onChange={handleChange}>
+                        {options.map((option, index) => (
+                            <MenuItem key={index} sx={{width: '347px', height: '36px'}} value={option}>
+                                {option}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                    {format === 'Text' && (<>
+                            <TextField
+                                sx={{mt: 2, width: '100%'}}
+                                id="question"
+                                label="Enter question"
+                                variant="standard"
+                                margin="normal"
+                                {...register('question')}
+                            />
+                            <TextField
+                                sx={{mt: 2, width: '100%'}}
+                                id="answer"
+                                label="Enter answer"
+                                variant="standard"
+                                margin="normal"
+                                {...register('answer')}
+                            />
+                        </>
                     )}
-                  />
-                ) : null}
-              </div>
-            )}
-            name="selectValue"
-            control={control}
-          />
+                    {format === 'Image' && (
+                        <>
+                            <UploadImage setValue={setValue} valueId={'questionImg'}
+                                         buttonName={'Upload Question picture'}/>
+                            <UploadImage setValue={setValue} valueId={'answerImg'}
+                                         buttonName={'Upload Answer picture'}/>
+                        </>
+                    )}
+                    <Typography sx={{mt: 2}} display={'flex'} justifyContent={'space-between'}>
+                        <Button variant={'outlined'} onClick={handleClose}>
+                            Cancel
+                        </Button>
+                        <Button variant={'contained'} color={'primary'} type={'submit'}>
+                            Save
+                        </Button>
+                    </Typography>
+                </form>
+            </BasicModal>
         </div>
-        <div>
-          <div>Question</div>
-          <div>
-            <Controller
-              control={control}
-              name="question"
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  style={{ width: '100%' }}
-                  variant="standard"
-                  onChange={onChange}
-                  value={value}
-                />
-              )}
-            />
-          </div>
-        </div>
-        <div>
-          <div>Answer</div>
-          <div>
-            <Controller
-              control={control}
-              name="answer"
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  style={{ width: '100%' }}
-                  variant="standard"
-                  onChange={onChange}
-                  value={value}
-                />
-              )}
-            />
-          </div>
-        </div>
-      </div>
-      <SuperButton onClick={handleOpen}>Add new card</SuperButton>
-    </div>
-  )
+    )
 }

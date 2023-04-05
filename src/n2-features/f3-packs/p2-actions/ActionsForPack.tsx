@@ -58,7 +58,6 @@ export const ActionsForPack = ({
 
   const onDeletePackHandle = (id: string) => {
     dispatch(deletePack(id, paramsFromUrl))
-    navigate(PATH.PACKS)
   }
 
   const onEditPackHandle = (data: UpdatePackType) => {

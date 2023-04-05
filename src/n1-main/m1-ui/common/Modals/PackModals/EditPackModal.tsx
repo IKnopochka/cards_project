@@ -11,9 +11,9 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { BasicModal } from 'n1-main/m1-ui/common/Modals/BasicModal'
 
 import { UpdatePackType } from 'n1-main/m3-dal/packsAPI'
-import { UploadPackImage } from 'n1-main/m1-ui/common/UploadImagePack/UploadPackImage'
+import { UploadImage } from 'n1-main/m1-ui/common/UploadImage/UploadImage'
 
-type AddPackModalType = {
+type EditPackModalType = {
   onEditHandle: (data: UpdatePackType) => void
   packId: string
   packName: string
@@ -27,7 +27,7 @@ export const EditPackModal = ({
   onEditHandle,
   packCover,
   ...props
-}: AddPackModalType) => {
+}: EditPackModalType) => {
   const [open, setOpen] = useState(false)
 
   const handleOpen = () => setOpen(true)
@@ -55,7 +55,7 @@ export const EditPackModal = ({
           EDIT PACK
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <UploadPackImage buttonName={'Update cover'} setValue={setValue} packCover={packCover} />
+          <UploadImage buttonName={'Update cover'} setValue={setValue} cover={packCover} valueId={'deckCover'}/>
           <TextField
             sx={{ mt: 2, width: '100%' }}
             id="pack-name"

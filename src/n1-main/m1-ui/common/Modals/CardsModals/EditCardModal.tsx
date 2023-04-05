@@ -1,190 +1,90 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 
-import CloseIcon from '@mui/icons-material/Close'
+import BorderColorIcon from '@mui/icons-material/BorderColor'
 import Button from '@mui/material/Button'
-import MenuItem from '@mui/material/MenuItem'
-import Select from '@mui/material/Select'
+import Checkbox from '@mui/material/Checkbox'
+import IconButton from '@mui/material/IconButton'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import { Controller, useForm } from 'react-hook-form'
-import { useLocation } from 'react-router-dom'
+import {SubmitHandler, useForm} from 'react-hook-form'
 
-import { CardType } from 'n1-main/m3-dal/cardsAPI'
-import { useAppDispatch } from 'n1-main/m3-dal/store'
-import { updateCard } from 'n1-main/m2-bll/cardsSlice'
-import { fileToBasePromise } from 'n1-main/m1-ui/utils/fileToBasePromise'
-import {SuperButton} from "n1-main/m1-ui/common/index";
+import {BasicModal} from 'n1-main/m1-ui/common/Modals/BasicModal'
 
-type AddCardModalPropsType = {
-  card: CardType
-  handleClose: () => void
+import {UpdatePackType} from 'n1-main/m3-dal/packsAPI'
+import {UploadImage} from 'n1-main/m1-ui/common/UploadImage/UploadImage'
+import {CardType, UpdateCardType} from "n1-main/m3-dal/cardsAPI";
+
+type EditCardModalType = {
+    onEditHandle: (data: UpdateCardType) => void
+    card: CardType
 }
 
-export type AddCardType = {
-  selectValue: string
-  question: string
-  answer: string
-  questionImg: string
-}
+export const EditCardModal = ({onEditHandle, card, ...props}: EditCardModalType) => {
+    const [open, setOpen] = useState(false)
 
-const options = ['Text', 'Image']
-
-export const EditCardModal = (props: AddCardModalPropsType) => {
-  const dispatch = useAppDispatch()
-  const { search } = useLocation()
-  const paramsFromUrl = Object.fromEntries(new URLSearchParams(search))
-
-  const handleOpen = () => {
-    submitFunc(getValues())
-    props.handleClose()
-  }
-
-  const question = props.card.questionImg ? props.card.questionImg : props.card.question
-
-  const { control, getValues, reset, setValue } = useForm<AddCardType>({
-    defaultValues: {
-      selectValue: options[0],
-      question: question,
-      answer: props.card.answer,
-      questionImg: '',
-    },
-  })
-
-  const submitFunc = (data: AddCardType) => {
-    dispatch(
-      updateCard(
-        {
-          ...props.card,
-          answer: data.answer,
-          question: data.question,
-          questionImg: data.questionImg,
-        },
-        { cardsPack_id: props.card.cardsPack_id, ...paramsFromUrl }
-      )
-    )
-    reset({ selectValue: options[0], question: '', answer: '' })
-  }
-
-  const uploadHandler = (files: FileList | null) => {
-    if (files && files.length) {
-      fileToBasePromise(files[0]).then(res => {
-        setValue('questionImg', res as string)
-      })
+    const handleOpen = () => setOpen(true)
+    const handleClose = () => {
+        setOpen(false)
+        reset()
     }
-  }
 
-  return (
-    <div
-      style={{
-        width: '400px',
-        height: '400px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          width: '347px',
-        }}
-      >
-        <Typography>Edit card</Typography>
-        <CloseIcon onClick={props.handleClose} />
-      </div>
+    const {register, handleSubmit, reset, setValue} = useForm<UpdateCardType>()
 
-      <div
-        style={{
-          height: '190px',
-          width: '347px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexDirection: 'column',
-        }}
-      >
-        {question.length < 30 ? (
-          <div>
-            <Controller
-              render={({ field }) => (
-                <Select sx={{ width: '100%', height: '36px' }} {...field}>
-                  {options.map((option, index) => (
-                    <MenuItem key={index} sx={{ width: '347px', height: '36px' }} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))}
-                </Select>
-              )}
-              name="selectValue"
-              control={control}
-            />
-          </div>
-        ) : null}
+    const onSubmit: SubmitHandler<UpdateCardType> = (data: UpdateCardType) => {
+        onEditHandle({...data, _id: card._id})
+        handleClose()
+    }
 
-        <div>
-          <div>Question</div>
-          <div>
-            <Controller
-              control={control}
-              name="question"
-              render={({ field: { onChange, value } }) => (
-                <div>
-                  {value.length > 30 ? (
-                    <img style={{ width: 345, height: 100 }} src={value} alt="image" />
-                  ) : (
-                    <TextField
-                      style={{ width: '100%' }}
-                      variant="standard"
-                      onChange={onChange}
-                      value={value}
-                    />
-                  )}
-                </div>
-              )}
-            />
-          </div>
-          <div>
-            <Controller
-              control={control}
-              name="question"
-              render={({ field: { onChange } }) => (
-                <label>
-                  <input
-                    type="file"
-                    onChange={event => {
-                      return uploadHandler(event.target.files)
-                    }}
-                    style={{ display: 'none' }}
-                    accept="image/png, image/jpeg, image/svg"
-                  />
-                  <Button style={{ marginLeft: '95px' }} variant="contained" component="span">
-                    Upload button
-                  </Button>
-                </label>
-              )}
-            />
-          </div>
-        </div>
-        <div>
-          <div>Answer</div>
-          <div>
-            <Controller
-              control={control}
-              name="answer"
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  style={{ width: '100%' }}
-                  variant="standard"
-                  onChange={onChange}
-                  value={value}
-                />
-              )}
-            />
-          </div>
-        </div>
-      </div>
-      <SuperButton onClick={handleOpen}>Edit card</SuperButton>
-    </div>
-  )
+    return (
+        <>
+            <IconButton color={'secondary'} onClick={handleOpen}>
+                <BorderColorIcon style={{marginRight: '4px'}}/>
+            </IconButton>
+
+            <BasicModal open={open} handleClose={handleClose}>
+                <Typography variant="h5" component="h2">
+                    EDIT CARD
+                </Typography>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    {card.questionImg && card.questionImg !== '' ?
+                    <>
+                        <UploadImage buttonName={'Update question image'} setValue={setValue} cover={card.questionImg}
+                                     valueId={'questionImg'}/>
+                        <UploadImage buttonName={'Update answer image'} setValue={setValue} cover={card.answerImg}
+                                     valueId={'answerImg'}/>
+                    </>
+                        :
+                        <>
+                            <TextField
+                                sx={{mt: 2, width: '100%'}}
+                                id="card-question"
+                                label="Edit card's question"
+                                variant="standard"
+                                margin="normal"
+                                defaultValue={card.question}
+                                {...register('question')}
+                            />
+                            <TextField
+                                sx={{mt: 2, width: '100%'}}
+                                id="card-answer"
+                                label="Edit card's answer"
+                                variant="standard"
+                                margin="normal"
+                                defaultValue={card.answer}
+                                {...register('answer')}
+                            />
+                        </>
+                    }
+                    <Typography sx={{mt: 2}} display={'flex'} justifyContent={'space-between'}>
+                        <Button variant={'outlined'} onClick={handleClose}>
+                            Cancel
+                        </Button>
+                        <Button variant={'contained'} color={'primary'} type={'submit'}>
+                            Save
+                        </Button>
+                    </Typography>
+                </form>
+            </BasicModal>
+        </>
+    )
 }

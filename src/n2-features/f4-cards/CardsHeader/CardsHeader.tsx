@@ -16,13 +16,11 @@ import {
     packUserIdSelector,
     userIdSelector
 } from 'n1-main/m1-ui/common/selectors/selectors'
-import { SuperButton} from "n1-main/m1-ui/common";
+import {SuperButton} from "n1-main/m1-ui/common";
 import {AddCardModal} from "n1-main/m1-ui/common/Modals/CardsModals/AddCardModal";
-import {BasicModal} from "n1-main/m1-ui/common/Modals/BasicModal";
 
 type CardsHeaderType = {
     onAddNewCard: (data: AddNewCardType) => void
-    packId: string
 }
 
 export const CardsHeader = (props: CardsHeaderType) => {
@@ -34,7 +32,7 @@ export const CardsHeader = (props: CardsHeaderType) => {
     const navigate = useNavigate()
 
     const onLearnCards = () => {
-        navigate(`${PATH.LEARN}/${props.packId}`)
+        navigate(`${PATH.LEARN}/${packUserId}`)
     }
 
     const [open, setOpen] = useState(false)
@@ -56,12 +54,12 @@ export const CardsHeader = (props: CardsHeaderType) => {
                     letterSpacing: '0.01em',
                     fontSize: '16px',
                     width: '175px',
-                }}>Back to cards</SuperButton>
+                }}>Back to packs</SuperButton>
                 <div className={s.header}>
                     <Typography className={s.title}>{packName}</Typography>
                     {userId === packUserId && (
                         <EditBar
-                            packId={props.packId}
+                            packId={packUserId}
                             packName={packName}
                             cardsTotalCount={cardsTotalCount}
                             packUserId={packUserId}
@@ -69,16 +67,7 @@ export const CardsHeader = (props: CardsHeaderType) => {
                     )}
                 </div>
                 {userId === packUserId ? (
-                    <SuperButton
-                        style={{
-                            letterSpacing: '0.01em',
-                            fontSize: '16px',
-                            width: '175px',
-                        }}
-                        onClick={handleOpen}
-                    >
-                        Add new card
-                    </SuperButton>
+                    <AddCardModal onAddHandle={props.onAddNewCard}/>
                 ) : (
                     <SuperButton
                         style={{
@@ -93,9 +82,6 @@ export const CardsHeader = (props: CardsHeaderType) => {
                     </SuperButton>
                 )}
             </div>
-            <BasicModal handleClose={handleClose} open={open}>
-                <AddCardModal pack_id={props.packId} handleClose={handleClose}/>
-            </BasicModal>
         </>
     )
 }

@@ -1,45 +1,33 @@
-import React, { useState } from 'react'
-
-import BorderColorIcon from '@mui/icons-material/BorderColor'
-import DeleteSweepIcon from '@mui/icons-material/DeleteSweep'
-
-import { CardType } from 'n1-main/m3-dal/cardsAPI'
+import React, {useState} from 'react'
+import {CardType, UpdateCardType} from 'n1-main/m3-dal/cardsAPI'
 import {EditCardModal} from "n1-main/m1-ui/common/Modals/CardsModals/EditCardModal";
+import {useAppDispatch} from "n1-main/m3-dal/store";
+import {deleteCard, updateCard} from "n1-main/m2-bll/cardsSlice";
+import {useLocation} from "react-router-dom";
 import {DeleteCardModal} from "n1-main/m1-ui/common/Modals/CardsModals/DeleteCardModal";
-import {BasicModal} from "n1-main/m1-ui/common/Modals/BasicModal";
 
 type ActionsPropsType = {
-  onStudyClick: (id: string) => void
-  card: CardType
+    card: CardType
+    cardsPackId: string
 }
 
-export const ActionsForCards = (props: ActionsPropsType) => {
-  const [openEditModal, setOpenEditModal] = useState(false)
-  const handleOpenEditModal = () => {
-    setOpenEditModal(true)
-  }
-  const handleCloseEditModal = () => {
-    setOpenEditModal(false)
-  }
+export const ActionsForCards = ({card, cardsPackId, ...props}: ActionsPropsType) => {
+    const dispatch = useAppDispatch()
+    const {search} = useLocation()
+    const paramsFromUrl = Object.fromEntries(new URLSearchParams(search))
 
-  const [openDeleteModal, setOpenDeleteModal] = useState(false)
-  const handleOpenDeleteModal = () => {
-    setOpenDeleteModal(true)
-  }
-  const handleCloseDeleteModal = () => {
-    setOpenDeleteModal(false)
-  }
+    const deleteCardModalHandle = (cardId: string) => {
+        dispatch(deleteCard(cardId, {...paramsFromUrl, cardsPack_id: cardsPackId}))
+    }
 
-  return (
-    <div style={{ marginRight: '14px' }}>
-      <BorderColorIcon style={{ marginRight: '8px' }} onClick={handleOpenEditModal} />
-      <DeleteSweepIcon onClick={handleOpenDeleteModal} />
-      <BasicModal handleClose={handleCloseEditModal} open={openEditModal}>
-        <EditCardModal card={props.card} handleClose={handleCloseEditModal} />
-      </BasicModal>
-      <BasicModal handleClose={handleCloseDeleteModal} open={openDeleteModal}>
-        <DeleteCardModal card={props.card} handleClose={handleCloseDeleteModal} />
-      </BasicModal>
-    </div>
-  )
+    const editCardModalHandle = (data: UpdateCardType) => {
+        dispatch(updateCard(data, {...paramsFromUrl, cardsPack_id: cardsPackId}))
+    }
+
+    return (
+        <div style={{marginRight: '14px'}}>
+            <DeleteCardModal id={card._id} name={card.questionImg ?? card.questionImg} onDeleteHandle={deleteCardModalHandle}/>
+            <EditCardModal onEditHandle={editCardModalHandle} card={card}/>
+        </div>
+    )
 }

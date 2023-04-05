@@ -10,7 +10,7 @@ import { BasicModal } from 'n1-main/m1-ui/common/Modals/BasicModal'
 
 import { AddNewPackType } from 'n1-main/m3-dal/packsAPI'
 import { useAppSelector } from 'n1-main/m3-dal/store'
-import { UploadPackImage } from 'n1-main/m1-ui/common/UploadImagePack/UploadPackImage'
+import { UploadImage } from 'n1-main/m1-ui/common/UploadImage/UploadImage'
 import {SuperButton} from "n1-main/m1-ui/common/index";
 
 type AddPackModalPropsType = {
@@ -53,7 +53,7 @@ export const AddPackModal = ({ onAddHandle, ...props }: AddPackModalPropsType) =
           ADD NEW PACK
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <UploadPackImage setValue={setValue} buttonName={'Update cover picture'} />
+          <UploadImage setValue={setValue} valueId={'deckCover'} buttonName={'Update cover picture'} />
           <TextField
             sx={{ mt: 2, width: '100%' }}
             id="pack-name"

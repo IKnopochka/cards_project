@@ -19,7 +19,6 @@ import {cardsSelector, isLoggedInSelector, packNameSelector} from "n1-main/m1-ui
 
 export const Cards = () => {
   const cards = useAppSelector(cardsSelector)
-  const packName = useAppSelector(packNameSelector)
   const dispatch = useAppDispatch()
   const isLoggedIn = useAppSelector(isLoggedInSelector)
   //set params into URL
@@ -57,7 +56,7 @@ export const Cards = () => {
 
   return (
     <>
-      <CardsHeader onAddNewCard={onAddNewCardHandler} packId={cardsPack_id} />
+      <CardsHeader onAddNewCard={onAddNewCardHandler}/>
       <TableContainer component={Paper}>
         <SearchField
           onSearchName={onSearchNameDebounce}
@@ -67,7 +66,7 @@ export const Cards = () => {
         {cards?.length > 0 ? (
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <CardsTableHead setSort={setSortCards} sort={sortCards ?? '0updated'} />
-            <CardsTableBody />
+            <CardsTableBody cardsPackId={cardsPack_id}/>
           </Table>
         ) : (
           <div className={s.container}>

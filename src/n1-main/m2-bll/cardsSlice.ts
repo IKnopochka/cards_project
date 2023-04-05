@@ -49,6 +49,7 @@ export const cardsReducer = cardsSlice.reducer
 
 //thunkCreators
 export const getCards = (attributes: GetCardsType) => async (dispatch: Dispatch) => {
+    console.log(attributes)
   dispatch(setAppStatus({ status: 'loading' }))
   try {
     const result = await cardsAPI.getAllCards(attributes)
@@ -87,6 +88,7 @@ export const deleteCard =
   }
 export const updateCard =
   (data: UpdateCardType, attributes: GetCardsType) => async (dispatch: AppDispatch) => {
+    console.log(attributes)
     dispatch(setAppStatus({ status: 'loading' }))
     try {
       await cardsAPI.updateCard(data)
