@@ -83,7 +83,7 @@ export const Login: FC = () => {
           </form>
           <div className={s.already}>Already have an account?</div>
           <NavLink to={'/registration'} className={s.singUp}>
-            Sing Up
+            Sign Up
           </NavLink>
         </div>
       </Paper>
