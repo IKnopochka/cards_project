@@ -54,6 +54,7 @@ export const Login: FC = () => {
               id="email"
               label="Email"
               variant="standard"
+              defaultValue={"irinaredhood@gmail.com"}
               margin="normal"
               error={!!errors.email}
               helperText={errors.email?.message}

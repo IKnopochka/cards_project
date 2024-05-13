@@ -31,6 +31,7 @@ export const PasswordInput: FC<PasswordInputProps> = ({ id, register, error }) =
       <Input
         id={id}
         type={showPassword ? 'text' : 'password'}
+        defaultValue={"FreeToWatch"}
         error={!!error}
         {...register('password', {
           required: 'Password is a required field!',
